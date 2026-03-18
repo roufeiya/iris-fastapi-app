@@ -6,10 +6,9 @@ WORKDIR /code
 COPY ./requirements.txt /code/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
-# Кодты және модельді көшіру
-# Ескерту: Сенде модель 'app' папкасының ішінде тұрса, жолды солай жазамыз
+# Модель мен кодты контейнерге көшіру
+COPY ./model.joblib /code/model.joblib
 COPY ./app /code/app
-COPY ./app/model.joblib /code/model.joblib
 
-# Портты 8080 жасаймыз (Cloud Run үшін ыңғайлы)
+# Серверді іске қосу (порт 8080 Render үшін стандарт)
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
